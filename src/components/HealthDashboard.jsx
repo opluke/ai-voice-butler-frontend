@@ -1,6 +1,6 @@
 // src/components/HealthDashboard.jsx
 
-export default function HealthDashboard({ health = {} }) {
+export default function HealthDashboard({ health }) {
   // ========= 先做一層安全包裝，避免 health 是 undefined =========
   const safe = {
     bloodPressure: health?.bloodPressure ?? "118 / 75",
