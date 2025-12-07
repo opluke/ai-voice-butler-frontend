@@ -1,0 +1,988 @@
+/* ======================================== */
+/*                 全域設定                  */
+/* ======================================== */
+
+:root {
+  --bg-light: #f5f7fa;
+  --bg-dark: #1f1f1f;
+
+  --card-light: #ffffff;
+  --card-dark: #2a2a2a;
+
+  --text-light: #1f1f1f;
+  --text-dark: #f0f0f0;
+
+  --bubble-ai-light: #fff3d8;
+  --bubble-ai-dark: #3a3a3a;
+
+  --bubble-user-light: #d8ecff;
+  --bubble-user-dark: #0f4c75;
+
+  --primary: #4ba3ff;
+  --primary-dark: #78baff;
+
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* ------ 主題模式 ------ */
+[data-theme="light"] {
+  --bg: var(--bg-light);
+  --card: var(--card-light);
+  --text: var(--text-light);
+  --bubble-user: var(--bubble-user-light);
+  --bubble-ai: var(--bubble-ai-light);
+}
+
+[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --card: var(--card-dark);
+  --text: var(--text-dark);
+  --bubble-user: var(--bubble-user-dark);
+  --bubble-ai: var(--bubble-ai-dark);
+}
+
+
+/* ======================================== */
+/*              主框架                      */
+/* ======================================== */
+
+body {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: 0.4s ease;
+}
+
+.app-root {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+/* ======================================== */
+/*               Header                     */
+/* ======================================== */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.app-header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.theme-btn {
+  padding: 12px 25px;
+  font-size: 22px;
+  border-radius: 40px;
+  border: 2px solid var(--primary);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ⭐ Header 右側：使用者 / 登出 / 主題切換 */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.logout-btn:hover {
+  background: #e9e9e9;
+}
+
+
+/* ======================================== */
+/*              CareCard                    */
+/* ======================================== */
+
+.care-zone {
+  margin-bottom: 25px;
+}
+
+.care-card {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.care-card h2 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.care-text {
+  font-size: 22px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.care-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 22px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 6px var(--shadow);
+}
+
+.care-btn:hover {
+  background: var(--primary-dark);
+}
+
+
+/* ======================================== */
+/*               ChatWindow                 */
+/* ======================================== */
+
+.chat-window {
+  background: var(--card);
+  padding: 20px;
+  height: 350px;
+  border-radius: 18px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px var(--shadow);
+  margin-bottom: 25px;
+}
+
+/* 一行訊息 */
+.msg-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* 使用者靠右 */
+.msg-row.user {
+  justify-content: flex-end;
+}
+
+/* AI 靠左 */
+.msg-row.assistant {
+  justify-content: flex-start;
+}
+
+/* Avatar 表情符號 */
+.msg-avatar {
+  font-size: 32px;
+  margin-top: 5px;
+}
+
+/* 訊息氣泡 */
+.msg-bubble {
+  max-width: 65%;
+  padding: 15px 18px;
+  border-radius: 18px;
+  font-size: 22px;
+  line-height: 1.7;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+}
+
+/* User 氣泡 */
+.msg-row.user .msg-bubble {
+  background: var(--bubble-user);
+  color: var(--text);
+}
+
+/* AI 氣泡 */
+.msg-row.assistant .msg-bubble {
+  background: var(--bubble-ai);
+  color: var(--text);
+}
+
+/* 滾動條 */
+.chat-window::-webkit-scrollbar {
+  width: 10px;
+}
+.chat-window::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 10px;
+}
+
+
+/* ======================================== */
+/*            VoiceRecorder 錄音區           */
+/* ======================================== */
+
+.voice-zone {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.voice-area {
+  display: flex;
+  gap: 20px;
+}
+
+/* 通用按鈕 */
+.voice-btn {
+  font-size: 24px;
+  padding: 18px 40px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  color: white;
+}
+
+/* 開始錄音 */
+.voice-btn.start {
+  background: #4CAF50;
+}
+.voice-btn.start:hover {
+  background: #43a047;
+  transform: scale(1.05);
+}
+
+/* 停止錄音 */
+.voice-btn.stop {
+  background: #e63946;
+}
+.voice-btn.stop:hover {
+  background: #d62828;
+  transform: scale(1.05);
+}
+
+/* 禁用 */
+.voice-btn.disabled,
+.voice-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+
+/* ======================================== */
+/*               健康儀表板                  */
+/* ======================================== */
+
+.health-dashboard {
+  background: var(--card);
+  padding: 20px 22px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px var(--shadow);
+  margin-bottom: 25px;
+}
+
+.health-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.health-header h2 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.health-update {
+  font-size: 16px;
+  opacity: 0.75;
+}
+
+/* 卡片排列 */
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.health-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.12);
+}
+
+/* 暗色模式下微調 */
+[data-theme="dark"] .health-card {
+  background: #333333;
+}
+
+.health-title {
+  font-size: 18px;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+
+.health-value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.health-value.highlight {
+  color: #1e88e5;
+}
+
+.health-tip {
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+/* 小標籤，例如「飯前數值」 */
+.health-tag {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tag-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* 心情卡片稍微可愛一點 */
+.mood-card {
+  background: #ffe8f0;
+}
+
+[data-theme="dark"] .mood-card {
+  background: #4a2f3f;
+}
+
+/* ========================= */
+/*     健康儀表板樣式        */
+/* ========================= */
+.health-dashboard {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px var(--shadow);
+  margin-bottom: 25px;
+}
+
+.health-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.health-item {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px var(--shadow);
+  text-align: center;
+}
+
+.health-item.danger {
+  border: 2px solid #ff6b6b;
+  background: #ffecec;
+}
+
+.health-item h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.value {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.warn {
+  font-size: 16px;
+  color: #d9534f;
+  margin-top: 8px;
+}
+
+/* 輸入模式切換按鈕 */
+.input-mode-switch {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-mode-switch button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  border: 2px solid var(--primary);
+  background: var(--button);
+  cursor: pointer;
+}
+
+.input-mode-switch button.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* 手動輸入面板（舊版，會被後面的新版覆蓋大部分樣式，但保留結構） */
+.health-input-panel {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px var(--shadow);
+  margin-bottom: 20px;
+}
+
+.health-input-panel h3 {
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.input-row {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-row input {
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.bp-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.health-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.health-card.danger {
+  border: 2px solid #ff6b6b;
+  background: #ffecec;
+}
+
+.health-tag.tag-warning {
+  background: #ffd56b;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* 健康 Dashboard（重複定義，作為細部微調） */
+.health-dashboard {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px var(--shadow);
+  margin-bottom: 25px;
+}
+
+.health-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.health-card {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px var(--shadow);
+}
+
+.health-card.alert {
+  border: 2px solid #ff4d4d;
+  background: #ffe6e6;
+}
+
+.health-value {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.health-alert {
+  color: red;
+}
+
+/* 手動輸入 UI（舊版） */
+.health-input-panel {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.health-input-panel input,
+.health-input-panel select {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.health-submit {
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 24px;
+  border-radius: 10px;
+}
+
+/* 折線圖 */
+.health-chart {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* AI 健康趨勢分析按鈕 */
+.ai-health-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: linear-gradient(135deg, #6fb1fc, #4364f7, #3f51b5);
+  color: white;
+
+  padding: 14px 26px;
+  border: none;
+  border-radius: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+  transition: 0.25s ease;
+  letter-spacing: 0.5px;
+}
+
+.ai-health-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.08);
+}
+
+.ai-health-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.arrow-icon {
+  font-size: 24px;
+  margin-left: 6px;
+  transition: 0.2s;
+}
+
+.ai-health-btn.arrow:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+.chart-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin: 20px 0;
+}
+
+.chart-card h3 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* ========================= */
+/* 登入 / 註冊面板 — 白色版  */
+/* ========================= */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);   /* 背景淡淡灰 */
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: auth-fade-in 0.2s ease-out;
+}
+
+.auth-card {
+  background: #ffffff;  /* ⭐ 白色背景 */
+  padding: 28px 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* 柔和陰影 */
+  width: 360px;
+  max-width: 92vw;
+  border: 1px solid #e8e8e8;   /* 淺灰邊框 */
+  position: relative;
+}
+
+.auth-card h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+  color: #222; /* 深色標題 */
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #666; /* 淺灰文字 */
+  margin-bottom: 18px;
+}
+
+/* 表單本體 */
+.auth-form .input-row {
+  margin-bottom: 16px;
+}
+
+.auth-form .input-row label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #444; /* 深灰 */
+}
+
+.auth-form .input-row input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  box-sizing: border-box;
+  background: #fafafa; /* 淺灰白 */
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.2s;
+}
+
+/* 聚焦效果 */
+.auth-form .input-row input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.25);
+}
+
+/* 錯誤訊息 */
+.auth-error {
+  margin-top: -6px;
+  margin-bottom: 8px;
+  color: #d9534f; /* 鮮紅 */
+  font-size: 13px;
+  text-align: left;
+}
+
+/* 主按鈕（登入/註冊） */
+.auth-submit-btn {
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 999px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.auth-submit-btn:hover {
+  background: #4c8dff;
+  transform: translateY(-1px);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* 切換登入/註冊 */
+.auth-switch {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #444;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.auth-switch button:hover {
+  opacity: 0.7;
+}
+
+/* 動畫 */
+@keyframes auth-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================= */
+/* 手動健康輸入 panel（白色） */
+/* ========================= */
+
+.health-input-panel {
+  background: #ffffff;
+  margin: 20px auto;
+  padding: 22px 24px;
+  width: 90%;
+  max-width: 420px;
+
+  border-radius: 18px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hip-title {
+  text-align: center;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  color: #222;
+}
+
+/* 每一列 */
+.hip-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.hip-row label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #444;
+}
+
+/* 單一輸入框 */
+.health-input-panel input {
+  padding: 9px 12px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+/* 聚焦 */
+.health-input-panel input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.25);
+}
+
+/* 血壓兩欄 */
+.hip-bp-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hip-bp-group input {
+  width: 100%;
+}
+
+/* 提交按鈕 */
+.hip-submit {
+  margin-top: 6px;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  transition: 0.15s ease;
+}
+
+.hip-submit:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.hip-submit:active {
+  transform: translateY(0);
+}
+/* ======================================== */
+/*      語音暫存提示 ＋ 結束輸入按鈕區塊      */
+/* ======================================== */
+
+/* 暫存中的健康資料提示文字 */
+.pending-hint {
+  margin: 10px 0 5px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #8c6d1f;
+}
+
+/* 容納「結束輸入數據並更新圖表」按鈕的區塊 */
+.confirm-health-zone {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px 0;
+}
+
+/* ✅ 結束輸入數據並更新圖表 */
+.confirm-health-btn {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  color: #fff;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+/* hover 效果 */
+.confirm-health-btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* 按下效果 */
+.confirm-health-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* disabled 狀態（沒有暫存資料時） */
+.confirm-health-btn:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 結束輸入並更新圖表按鈕 */
+.commit-row {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px 0;
+}
+
+.health-commit-btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+  transition: 0.2s ease;
+}
+
+.health-commit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.health-commit-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
