@@ -3,11 +3,11 @@ export default function HealthDashboard({ health }) {
   // ========= 安全拆血壓 =========
   let sys = 0;
   let dia = 0;
-  if (health.bloodPressure) {
-    const parts = health.bloodPressure.split("/");
+  if (safe.bloodPressure) {
+    const parts = String(safe.bloodPressure).split("/");
     if (parts.length >= 2) {
-      sys = Number(parts[0]);
-      dia = Number(parts[1]);
+      sys = Number(parts[0].trim());
+      dia = Number(parts[1].trim());
     }
   }
 

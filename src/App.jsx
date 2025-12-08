@@ -274,7 +274,7 @@ export default function App() {
         📊 AI 健康趨勢分析 <span className="arrow-icon">➜</span>
       </button>
 
-      <HealthDashboard health={health} />
+      <HealthDashboard health={health || {}} />
       <HealthChart history={healthHistory} />
 
       {pendingHealth && (
